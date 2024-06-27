@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AddNewProject from './AddNewProject';
 import Project from './Project'
-import { CaretUp, Palette, PencilFill } from 'react-bootstrap-icons';
+import { CaretDown, CaretUp, Palette, PencilFill } from 'react-bootstrap-icons';
 
 
 const Projects = () => {
@@ -44,12 +44,16 @@ const Projects = () => {
                     }
                     <AddNewProject />
                     <span className='arrow'>
-                        <CaretUp size='20' />
+                        {
+                            showMenu ? 
+                            <CaretDown size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/> : <CaretUp size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/>
+                        }
                     </span>
                 </div>
             </div>
             <div className='items'>
                 {
+                    showMenu && projects.length > 0 &&
                     projects.map( project => 
                         <Project 
                             project={project}

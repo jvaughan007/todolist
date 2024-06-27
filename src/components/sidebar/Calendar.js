@@ -1,10 +1,10 @@
-import React from 'react';
-import { CalendarDate, CaretUp } from 'react-bootstrap-icons';
+import React, { useState } from 'react';
+import { CalendarDate, CaretUp, CaretDown } from 'react-bootstrap-icons';
 import { calendarItems } from '../../constants';
 
 
 const Calendar = () => {
-
+   const [showMenu, setShowMenu] = useState(true);
 
     return (
         <div className='Calendar'>
@@ -15,12 +15,16 @@ const Calendar = () => {
                 </div>
                 <div className='btns'>
                     <span>
-                        <CaretUp size='20' />
+                    {
+                            showMenu ? 
+                            <CaretDown size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/> : <CaretUp size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/>
+                    }
                     </span>
                 </div>
             </div>
             <div className='items'>
                 {
+                    showMenu &&
                     calendarItems.map(item => 
                         <div className='item' key={item} >
                             {item}
