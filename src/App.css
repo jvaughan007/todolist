@@ -224,6 +224,7 @@
 .Calendar .header .btns span:hover {
     background-color: #ffbea3;
     transition: all 300ms ease-in-out;
+    border: 0.5px solid #000000; 
 }
 
 .Calendar .items .item {
@@ -232,3 +233,121 @@
     cursor: pointer;
     font-size: 1rem;
 }
+
+/* Projects */
+.Projects {
+    padding: 1rem;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.Projects .header {
+    display: flex;
+    align-items: center;
+}
+
+.Projects .header .title {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.Projects .header .title p {
+    margin-left: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.Projects .header .btns {
+    display: flex;
+    align-items: center;
+}
+
+.Projects .header .btns span .edit {
+    margin-right: 5px;
+}
+
+.Projects .header .btns span {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Projects .header .btns span:hover {
+    background-color: #ffbea3;
+    transition: all 300ms ease-in-out;
+    border: 0.5px solid #000000; 
+}
+
+.Projects .items {
+    padding: 0.5rem;
+}
+
+
+/* Project */
+.Project {
+    display: flex;
+    align-items: center;
+    padding: 0.25rem;
+    margin: 5px;
+    font-size: 1rem;
+}
+
+.Project .name {
+    cursor: pointer;
+    word-break: break-all;
+    width: 100%;
+}
+
+.Project .btns {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.Project .btns .total-todos {
+    position: absolute;
+    right: 0;
+    background: #ebebeb;
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.Project .btns .edit-delete {
+    position: absolute;
+    right: 0;
+    display: flex;
+}
+
+.Project .btns .edit-delete span {
+    border-radius: 50%;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-left: 3px;
+}
+
+.Project .btns .edit-delete span:hover {
+    background-color: #ffbea3;
+    transition: all 300ms ease-in-out;
+    border: 0.5px solid #000000; 
+}
+
+.Project .btns .edit-delete span:hover {
+    background-color: #ffbea3;
+    transition: all 300ms ease-in-out;
+}
+
+
