@@ -46,8 +46,18 @@ const Projects = () => {
                     <span className='arrow'>
                         {
                             showMenu ? 
-                            <CaretDown size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/> : <CaretUp size='20' onClick={() => setShowMenu( showMenu => !showMenu)}/>
-                        }
+                            <CaretDown size='20' onClick={() => {
+                                setShowMenu( showMenu => !showMenu);
+                                setEdit(false);
+                                }
+                            }/> 
+                            : 
+                            <CaretUp size='20' onClick={() => {
+                                setShowMenu( showMenu => !showMenu);
+                                setEdit(false);
+                                }
+                            }/>
+                    }
                     </span>
                 </div>
             </div>
@@ -55,14 +65,16 @@ const Projects = () => {
                 {
                     showMenu && projects.length > 0 &&
                     projects.map( project => 
-                        <Project 
-                            project={project}
-                            key={project.id}
-                            edit={edit}
-                        />
+                        <div className='item'>
+                            <Project 
+                                project={project}
+                                key={project.id}
+                                edit={edit}
+                            />
+                        </div>
                     )
                 }
-            </div>
+            </div>                        
         </div>
     )
 }
