@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Sidebar from './components/sidebar/Sidebar';
+import User from './components/sidebar/User';
+import AddNewTodo from './components/sidebar/AddNewTodo';
+import Calendar from './components/sidebar/Calendar';
+import Projects from './components/sidebar/Projects';
+import Main from './components/main/Main';
+import Todos from './components/main/Todos';
+import EditTodo from './components/main/EditTodo';
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar>
+        <User />
+        <AddNewTodo />
+        <Calendar />
+        <Projects />
+      </Sidebar>
+      <Main>
+        <Todos />
+        <EditTodo />
+      </Main>
     </div>
   );
 }
