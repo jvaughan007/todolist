@@ -21,7 +21,7 @@ const AddNewProject = () => {
             <Modal showModal={showModal} setShowModal={setShowModal}>
                 <ProjectForm 
                     handleSubmit={handleSubmit}
-                    heading='New Project'
+                    heading='Name Your New Project!'
                     value={projectName}
                     setValue={setProjectName}
                     setShowModal={setShowModal}

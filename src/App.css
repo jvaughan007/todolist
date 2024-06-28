@@ -61,13 +61,16 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.8);
+    z-index: 99;
 }
 
 .Modal .container {
     position: absolute;
     top: 25%;
-    left: 40%;
+    left: 45%;
     background-color: white;
+    border-radius: 4px;
+    min-width: 350px;
 }
 
 .AddNewTodo {
@@ -348,6 +351,64 @@
 .Project .btns .edit-delete span:hover {
     background-color: #ffbea3;
     transition: all 300ms ease-in-out;
+}
+
+/* AddNewProject */
+.AddNewProject .add-button span {
+    margin-right: 5px;
+}
+
+/* ProjectForm */
+.ProjectForm {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 4px;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.ProjectForm input {
+    width: 100%;
+    height: 40px;
+    margin: 15px 0;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.ProjectForm input:focus {
+    outline: none;
+    border-bottom: 1px solid #ca90bd;
+}
+
+.ProjectForm button {
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    width: 50%;
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ProjectForm button.cancel {
+    left: 0;
+    background-color: #ebebeb;
+}
+
+.ProjectForm button.cancel:hover {
+    filter: brightness(0.9);
+    transition: all 300ms ease;
+}
+
+.ProjectForm button.confirm {
+    right: 0;
+    background-image: linear-gradient(#ab93c9, #ca90bd, #eda1ab, #febca3);
+}
+
+.ProjectForm button.confirm:hover {
+    filter: brightness(1.1);
+    transition: all 300ms ease;
 }
 
 
