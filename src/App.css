@@ -441,3 +441,47 @@
 .Todos .todos {
    overflow-y: auto;
 }
+
+/* Todo */
+.Todo {
+    padding: 0.5rem 1rem;
+}
+
+.Todo .todo-container {
+    display: flex;
+    align-items: center;
+}
+
+.Todo .todo-container span {
+    cursor: pointer;
+}
+
+.Todo .todo-container .name {
+    position: relative;
+    flex: 1;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.Todo .todo-container .name span {
+    font-size: 0.8rem;
+    color: grey;
+}
+
+.Todo .todo-container .name .line {
+    height: 1px;
+    background: #bebebe;
+    position: absolute;
+    top: 25%;
+    width: 0;
+    transition: width 250ms ease-in-out;
+}
+
+.Todo .todo-container .name .line-through {
+    width: 100%;
+}
+
+.Todo .todo-container .add-to-next-day {
+   margin-right: 10px; 
+}
+
