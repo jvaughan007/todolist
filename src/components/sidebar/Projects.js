@@ -34,6 +34,12 @@ const Projects = () => {
                 <div className='title'>
                     <Palette size='18' />
                     <p>Projects</p>
+                    {
+                        (showMenu === false) &&
+                        <div className='total-projects'>
+                        {projects.length}
+                        </div>
+                    }
                 </div>
                 <div className='btns'>
                     {
@@ -61,20 +67,22 @@ const Projects = () => {
                     </span>
                 </div>
             </div>
-            <div className='items'>
+            
                 {
                     showMenu && projects.length > 0 &&
                     projects.map( project => 
-                        <div className='item'>
-                            <Project 
-                                project={project}
-                                key={project.id}
-                                edit={edit}
-                            />
-                        </div>
+                        <div className='items'>
+                            <div className='item'>
+                                <Project 
+                                    project={project}
+                                    key={project.id}
+                                    edit={edit}
+                                />
+                            </div>
+                        </div>  
                     )
                 }
-            </div>                        
+                                  
         </div>
     )
 }

@@ -261,6 +261,18 @@
     font-weight: bold;
 }
 
+.Projects .header .title .total-projects {
+    margin-left: .5rem;
+    background: #ebebeb;
+    width: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
 .Projects .header .btns {
     display: flex;
     align-items: center;
@@ -287,7 +299,7 @@
 }
 
 .Projects .items {
-    padding: 0.5rem;
+    padding: 0.4rem;
 }
 
 
@@ -295,8 +307,8 @@
 .Project {
     display: flex;
     align-items: center;
-    padding: 0.25rem;
-    margin: 5px;
+    padding: 0.1rem;
+    margin: 2px 5px 0 5px;
     font-size: 1rem;
 }
 
