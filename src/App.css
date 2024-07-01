@@ -98,14 +98,14 @@
     transition: all 300ms ease;
 }
 
-.AddNewTodo form {
+.TodoForm {
     padding: 1rem 1rem calc(1rem + 40px) 1rem;
-    width: 500px;
-    background: white;
+    width: 100%;
+    background: aliceblue;
     border-radius: 4px;
 }
 
-.AddNewTodo form .text input {
+.TodoForm .text input {
     padding: 1rem;
     width: 100%;
     margin-bottom: 0.5rem;
@@ -113,46 +113,46 @@
     font-size: 1.2rem;
 }
 
-.AddNewTodo form .text input:focus {
+.TodoForm .text input:focus {
     outline: none;
     border-bottom: 1px solid #ca90bd;
 }
 
-.AddNewTodo form .remind {
+.TodoForm .remind {
     display: flex;
     align-items: center;
     padding: 0.5rem;
 }
 
-.AddNewTodo form p {
+.TodoForm p {
     margin-left: 10px;
 }
 
-.AddNewTodo form .title {
+.TodoForm .title {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
 
-.AddNewTodo form .pick-day {
+.TodoForm .pick-day {
     padding: 1.5rem 1.5rem 0 1.5rem;
 }
 
-.AddNewTodo form .pick-time {
+.TodoForm .pick-time {
     padding: 1.5rem;
 }
 
-.AddNewTodo form .pick-project {
+.TodoForm .pick-project {
     padding: 0.5rem;
 }
 
-.AddNewTodo form .pick-project .projects {
+.TodoForm .pick-project .projects {
     display: flex;
     flex-wrap: wrap;
     padding: 1rem 1rem 0 1rem;
 }
 
-.AddNewTodo form .pick-project .projects .project {
+.TodoForm .pick-project .projects .project {
     border: 1px solid #ca90bd;
     border-radius: 5px;
     padding: 5px;
@@ -160,7 +160,7 @@
     cursor: pointer;
 }
 
-.AddNewTodo form .pick-project .projects .active {
+.TodoForm .pick-project .projects .active {
     background-image: linear-gradient(#ab93c9, #ca90bd, #eda1ab, #febca3);
     border-radius: 5px;
     padding: 5px;
@@ -168,21 +168,21 @@
     cursor: pointer; 
 }
 
-.AddNewTodo form .cancel {
+.TodoForm .cancel {
     position: absolute;
     top: 0;
     right: 5px;
     cursor: pointer;
 }
 
-.AddNewTodo form .confirm {
+.TodoForm .confirm {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
 }
 
-.AddNewTodo form .confirm button {
+.TodoForm .confirm button {
     width: 100%;
     height: 40px;
     background-image: linear-gradient(#ab93c9, #ca90bd, #eda1ab, #febca3);
@@ -496,4 +496,27 @@
 .Todo .todo-container .add-to-next-day {
    margin-right: 10px; 
 }
+
+/* EditTodo */
+.EditTodo {
+    position: absolute;
+    bottom: 40px;
+    left: calc(40px + 450px + 40px);
+
+    background: aliceblue;
+    opacity: 0.8;
+
+    height: 80%;
+    width: 450px;
+    border-radius: 4px;
+}
+
+.EditTodo .header{
+    margin: 1rem 0.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #ca90bd;
+}
+
 

@@ -37,7 +37,7 @@ const Projects = () => {
                     {
                         (showMenu === false) &&
                         <div className='total-projects'>
-                        {projects.length}
+                            {projects.length}
                         </div>
                     }
                 </div>
