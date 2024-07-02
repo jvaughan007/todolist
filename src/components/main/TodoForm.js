@@ -6,14 +6,11 @@ import { DatePicker, DesktopTimePicker, LocalizationProvider } from '@mui/x-date
 
 const TodoForm = ({ handleSubmit,
     heading = false,
-    text, 
-    handleTextChange, 
-    remindMe,
-    handleRemindChange, 
-    day, 
-    setDay, 
-    time, 
-    setTime, 
+    text, handleTextChange, 
+    remindMe,handleRemindChange, 
+    day, setDay, 
+    time, setTime, 
+    toDoProject, setToDoProject,
     projects, 
     showButtons = false, 
     setShowModal= false 
@@ -64,14 +61,20 @@ const TodoForm = ({ handleSubmit,
                     </div>
                     <div className='projects'>
                         {
+                            projects.length > 0 ?
                             projects.map( project => 
                                 <div 
-                                    className='project'
+                                    className={ `project ${project.name === toDoProject ? "active" : ""}` }
                                     key={project.id}
+                                    onClick={() => setToDoProject(project.name)}
                                 >
                                     {project.name}
                                 </div>
                             )
+                            :
+                            <div style={{color: "#ff0000"}}>
+                                Please add a project before continuing!
+                            </div>
                         }
                     </div>
                 </div>
@@ -81,9 +84,12 @@ const TodoForm = ({ handleSubmit,
                         <div className='cancel' onClick={() => setShowModal(!setShowModal)}>
                             <X size='40' />
                         </div>
-                        <div className='confirm'>
-                            <button>Confirm</button>
-                        </div>
+                        {
+                            projects.length > 0 &&
+                            <div className='confirm'>
+                                <button>Confirm</button>
+                            </div>
+                        }
                     </div>
                     
                 }

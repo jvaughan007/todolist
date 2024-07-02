@@ -8,6 +8,7 @@ const EditTodo = () => {
     const [day, setDay] = useState(dayjs());
     const [time, setTime] = useState(dayjs());
     const [remindMe, setRemindMe] = useState(false);
+    const [toDoProject, setToDoProject] = useState();
 
     const projects = [
         {
@@ -63,6 +64,8 @@ const EditTodo = () => {
                     time={time}
                     setTime={setTime}
                     projects={projects}
+                    toDoProject={toDoProject}
+                    setToDoProject={setToDoProject}
                 />
            </div>
         </div>
