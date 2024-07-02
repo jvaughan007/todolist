@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import RenameProject from './RenameProject';
 import { PencilFill, Trash3Fill } from 'react-bootstrap-icons';
 import Modal from '../Modal';
+import { ToDoContext } from '../../context';
 
 
 const Project = ({project, edit}) => {
+
+    // Global Context
+    const { setSelectedProject } = useContext(ToDoContext);
+
+    // State of this component
     const [showModal, setShowModal] = useState(false);
 
     return (
         <div className='Project'>
-            <div className='name'>
+            <div 
+                className='name'
+                onClick={() => setSelectedProject(project.name)}
+            >
                 {project.name}
             </div>
             <div className='btns'>

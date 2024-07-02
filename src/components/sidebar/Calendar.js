@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { CalendarDate, CaretUp, CaretDown } from 'react-bootstrap-icons';
 import { calendarItems } from '../../constants';
+import { ToDoContext } from '../../context';
 
 
 const Calendar = () => {
+
+    // Global Context
+    const { setSelectedProject } = useContext(ToDoContext);
+    
+    // Local State
    const [showMenu, setShowMenu] = useState(true);
 
     return (
@@ -26,7 +32,11 @@ const Calendar = () => {
                 {
                     showMenu &&
                     calendarItems.map(item => 
-                        <div className='item' key={item} >
+                        <div 
+                            className='item' 
+                            key={item}
+                            onClick={() => setSelectedProject(item)} 
+                        >
                             {item}
                         </div>
                     )
