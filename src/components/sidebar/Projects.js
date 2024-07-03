@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AddNewProject from './AddNewProject';
 import Project from './Project'
 import { CaretDown, CaretUp, Palette, PencilFill } from 'react-bootstrap-icons';
+import { ToDoContext } from '../../context';
 
 
 const Projects = () => {
@@ -10,23 +11,9 @@ const Projects = () => {
     const [edit, setEdit] = useState(false);
     const pencilColor = edit ? "#2ec52e" : "#000000";
 
-    const projects = [
-        {
-            id: 1,
-            name: "personal",
-            numOfTodos: 0
-        },
-        {
-            id: 2,
-            name: "work",
-            numOfTodos: 1
-        },
-        {
-            id: 3,
-            name: "other",
-            numOfTodos: 2
-        }
-    ]
+
+    // Global Context
+    const {projects} = useContext(ToDoContext);
 
     return (
         <div className='Projects'>
