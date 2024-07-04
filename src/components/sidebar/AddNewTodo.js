@@ -1,8 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
+import moment from 'moment/moment';
 import TodoForm from '../main/TodoForm';
 import Modal from '../Modal';
 import { ToDoContext } from '../../context';
+import { calendarItems } from '../../constants';
+import { db } from '../../firebase/firebase';
+import randomColor from 'randomcolor';
+import { collection, addDoc } from 'firebase/firestore';
 
 
 const AddNewTodo = () => {
@@ -40,8 +45,29 @@ const AddNewTodo = () => {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
         
+
+        if( text && !calendarItems.includes(toDoProject)) {
+            const newDoc = await addDoc(collection(db, "todos"), {
+                checked: false,
+                color: randomColor(),
+                date: moment(day).format("DD/MM/YYY"),
+                day: moment(day).format('d'),
+                name: text,
+                project: toDoProject,
+                time: moment(time).format("hh:mm A"),
+            });
+            console.log(`Document written with ID: ${newDoc.id}`)
+            setShowModal(!showModal);
+            setText('');
+            setDay(dayjs());
+            setTime(dayjs());
+            if (remindMe === true) {
+                setRemindMe(false)
+            }
+        }
     }
 
     useEffect( () => {
