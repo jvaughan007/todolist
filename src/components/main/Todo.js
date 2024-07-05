@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
-import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
+import React, { useState, useContext } from 'react';
+import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise, PencilFill } from 'react-bootstrap-icons';
+import { db } from '../../firebase/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { ToDoContext } from '../../context';
 
 const Todo = ( { todo } ) => {
 
+    // Global Context
+    const { edit, setEdit } = useContext(ToDoContext);
+
     const [hover, setHover] = useState(false);
+    const pencilColor = edit ? "#2ec52e" : "#000000";
+    
+
+    const handleChecked = async (e) => {
+        e.preventDefault();
+
+        const docRef = doc(db, "todos", todo.id);
+
+        await updateDoc(docRef, {
+            checked: !todo.checked
+        })
+    }
 
     return (
         <div className='Todo'>
@@ -12,11 +30,11 @@ const Todo = ( { todo } ) => {
                 onMouseEnter={() => setHover(true)}
                 onMouseLeave={() => setHover(false)}
             >
-                <div className='check-todo'>
+                <div className='check-todo' onClick={handleChecked}>
                     {
                         todo.checked ?
                         <span className='checked'>
-                            <CheckCircleFill color='#bebebe' size='18'/>
+                            <CheckCircleFill color='#bebebe' size='18' />
                         </span>
                         :
                         <span className='unchecked'>
