@@ -543,6 +543,7 @@
     border-radius: 50%;
     position: absolute;
     right: 10px;
+    border: .5px solid black;
 }
 
 .Next7Days .todos .open-day {
