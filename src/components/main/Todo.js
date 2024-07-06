@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise, PencilFill } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
+import moment from 'moment';
 import { doc, updateDoc } from 'firebase/firestore';
 import { ToDoContext } from '../../context';
 
@@ -44,7 +45,13 @@ const Todo = ( { todo } ) => {
                 </div>
                 <div className='name'>
                     <p style={{color: todo.checked ? '#bebebe' : '#000'}}>{todo.name}</p>
-                    <span> {todo.time} - {todo.project} </span>
+                    {
+                        moment().format('d') <= moment(todo.date).format('d') ? 
+                        <span> {todo.time} - {todo.project} </span>
+                        :
+                        <span style={{color: "red"}}>Missed Todo</span>     
+                    }
+
                     <div className={ `line ${ todo.checked ? 'line-through' : ''}` } />
                 </div>
                 <div className='add-to-next-day'>
