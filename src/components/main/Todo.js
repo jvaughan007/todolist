@@ -1,17 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise, PencilFill } from 'react-bootstrap-icons';
+import React, { useState } from 'react';
+import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
 import moment from 'moment';
 import { doc, updateDoc } from 'firebase/firestore';
-import { ToDoContext } from '../../context';
+
 
 const Todo = ( { todo } ) => {
 
-    // Global Context
-    const { edit, setEdit } = useContext(ToDoContext);
-
     const [hover, setHover] = useState(false);
-    const pencilColor = edit ? "#2ec52e" : "#000000";
     
 
     const handleChecked = async (e) => {
