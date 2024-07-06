@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import dayjs from 'dayjs';
 import moment from 'moment/moment';
+import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday';
 import TodoForm from '../main/TodoForm';
 import Modal from '../Modal';
 import { ToDoContext } from '../../context';
@@ -10,10 +11,13 @@ import randomColor from 'randomcolor';
 import { collection, addDoc } from 'firebase/firestore';
 
 
+// dayjs Plugins
+dayjs.extend(weekday);
+
 const AddNewTodo = () => {
 
     // Global Context
-    const { selectedProject } = useContext(ToDoContext);
+    const { selectedProject, todos } = useContext(ToDoContext);
 
     // Local State
     const [showModal, setShowModal] = useState(false);
@@ -47,20 +51,20 @@ const AddNewTodo = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        // console.log(dayjs(day).weekday(), dayjs(day).format("MM/DD/YYYY"))
 
         if( text && !calendarItems.includes(toDoProject)) {
             const newDoc = await addDoc(collection(db, "todos"), {
                 checked: false,
                 color: randomColor(),
-                date: moment(day).format("DD/MM/YYY"),
-                day: moment(day).format('d'),
+                date: dayjs(day).format("MM/DD/YYYY"),
+                day: dayjs(day).weekday(),
                 name: text,
                 project: toDoProject,
-                time: moment(time).format("hh:mm A"),
+                time: dayjs(time).format("hh:mm A"),
             });
             console.log(`Document written with ID: ${newDoc.id}`)
-            setShowModal(!showModal);
+            setShowModal(false);
             setText('');
             setDay(dayjs());
             setTime(dayjs());
@@ -72,7 +76,7 @@ const AddNewTodo = () => {
 
     useEffect( () => {
         setToDoProject(selectedProject);
-    }, [selectedProject]);
+    }, [selectedProject, todos]);
 
     return (
         <div className='AddNewTodo'>

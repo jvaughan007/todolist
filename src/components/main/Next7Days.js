@@ -1,27 +1,34 @@
 import React, { useContext, useState, useEffect } from 'react';
-import moment from 'moment/moment';
+import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday'
 import { ToDoContext } from '../../context';
 import Todo from './Todo'
+
+// dayjs Plugins
+dayjs.extend(weekday);
 
 const Next7Days = () => {
     const [weekTodos, setWeekTodos] = useState([]);
 
     const { todos } = useContext(ToDoContext);
 
-    const days = [ 0, 1, 2, 3, 4, 5, 6 ]
+    useEffect(() => { 
+        const days = [ 0, 1, 2, 3, 4, 5, 6 ]
 
-    const sortTodosByDay = days.map( day => {
-        return {
-            todos: todos.filter( todo => todo.day === day ),
-            number: day
-        }
-    });
+        const sortTodosByDay = days.map( day => {
+            return {
+                todos: todos.filter( todo => todo.day === day ),
+                number: day
+            }
+        });
 
-    const today = parseInt(moment().format('d'));
+        const today = parseInt(dayjs().format('d'));
 
-    const arrangedTodos = sortTodosByDay.slice(today).concat(sortTodosByDay.slice(0, today));
+        const arrangedTodos = sortTodosByDay.slice(today).concat(sortTodosByDay.slice(0, today));
 
-    useEffect(() => setWeekTodos(arrangedTodos), [arrangedTodos]);
+        setWeekTodos(arrangedTodos);
+
+    }, [todos]);
 
     return (
         <div className='Next7Days'>
@@ -30,21 +37,23 @@ const Next7Days = () => {
                     <div key={day.number}>
                         <div className='day'>
                             <div className='name'>
-                                {moment(day.number, "d").format("dddd")}
-                                {day.number.toString() === moment().format("d") && ' (Today)'}
+                                {dayjs().weekday(day.number).format("dddd")}
+                                {day.number === dayjs().weekday() && " (Today)"}
                             </div>
-                            {
-                                day.todos.length > 0 &&
+                            { 
+                                day.todos.length > 0 && day.todos.filter(todo => todo.date > dayjs().format("MM/DD/YYYY")).length > 0 ?
                                     <div className='total-todos'>
-                                        {day.todos.length}
+                                        {day.todos.filter(todo => todo.date > dayjs().format("MM/DD/YYYY")).length}
                                     </div>
+                                :
+                                    ""
                             }
                         </div>
                         <div className='todos'>
                             {
                                 day.todos.length > 0 ?
                                 day.todos.map( todo => 
-                                    <Todo key={todo.id} todo={todo} />
+                                    todo.date >= dayjs().format("MM/DD/YYYY") && <Todo key={todo.id} todo={todo} />
                                  )
                                 :
                                 <p className='open-day'>

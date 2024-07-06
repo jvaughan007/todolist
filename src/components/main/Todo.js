@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
-import moment from 'moment';
 import { doc, updateDoc } from 'firebase/firestore';
+import dayjs from 'dayjs';
 
 
 const Todo = ( { todo } ) => {
@@ -42,10 +42,10 @@ const Todo = ( { todo } ) => {
                 <div className='name'>
                     <p style={{color: todo.checked ? '#bebebe' : '#000'}}>{todo.name}</p>
                     {
-                        moment().format('d') <= moment(todo.date).format('d') ? 
+                       ( dayjs(new Date()).format("MM/DD/YYYY") === dayjs(todo.date).format("MM/DD/YYYY") && todo.time > dayjs(new Date()).format("hh:mm A") ) || todo.checked === true ? 
                         <span> {todo.time} - {todo.project} </span>
                         :
-                        <span style={{color: "red"}}>Missed Todo</span>     
+                        <span style={{color: "red"}}> {todo.time} - {todo.project} (LATE/MISSED)</span>     
                     }
 
                     <div className={ `line ${ todo.checked ? 'line-through' : ''}` } />

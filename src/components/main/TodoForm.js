@@ -2,6 +2,7 @@ import React from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { CalendarEvent, Clock, Bell, BellSlash, Palette, X } from 'react-bootstrap-icons';
 import { DatePicker, DesktopTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import dayjs from "dayjs";
 
 
 const TodoForm = ({ handleSubmit,
@@ -51,7 +52,7 @@ const TodoForm = ({ handleSubmit,
                     </div>
                     <DesktopTimePicker
                         value={time} 
-                        onChange={(selectedTime) => setTime(selectedTime)}
+                        onChange={(selectedTime) => setTime(dayjs(selectedTime))}
                         />
                 </div>
                 <div className='pick-project'>
