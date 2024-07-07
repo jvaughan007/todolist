@@ -38,6 +38,7 @@ const Todos = () => {
                                     <Todo todo={todo} key={todo.key}/>
                             )
                         :
+                        selectedProject === 'all days' ?
                             todos.sort((a, b) => {
                                 const dateA = dayjs(a.date);
                                 const dateB = dayjs(b.date);
@@ -52,6 +53,11 @@ const Todos = () => {
 
                                 return 0;
                             }).map( todo => 
+                                <Todo todo={todo} key={todo.key} />
+                            )
+                        :
+                            todos.map( todo => 
+                                todo.project === selectedProject &&
                                 <Todo todo={todo} key={todo.key} />
                             )
                 }

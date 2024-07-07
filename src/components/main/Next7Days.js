@@ -17,7 +17,7 @@ const Next7Days = () => {
 
         const sortTodosByDay = days.map( day => {
             return {
-                todos: todos.filter( todo => todo.day === day ),
+                todos: todos.filter( todo => todo.day === day && dayjs(todo.date, "MM/DD/YYYY").isAfter(dayjs(), 'day')),
                 number: day
             }
         });
@@ -53,7 +53,8 @@ const Next7Days = () => {
                             {
                                 day.todos.length > 0 ?
                                 day.todos.map( todo => 
-                                    todo.date >= dayjs().format("MM/DD/YYYY") && <Todo key={todo.id} todo={todo} />
+                                    todo.date >= dayjs().format("MM/DD/YYYY") && 
+                                    <Todo key={todo.id} todo={todo} />
                                  )
                                 :
                                 <p className='open-day'>

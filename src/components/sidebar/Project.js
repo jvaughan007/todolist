@@ -8,7 +8,7 @@ import { ToDoContext } from '../../context';
 const Project = ({project, edit}) => {
 
     // Global Context
-    const { setSelectedProject } = useContext(ToDoContext);
+    const { setSelectedProject, selectedProject } = useContext(ToDoContext);
 
     // State of this component
     const [showModal, setShowModal] = useState(false);
