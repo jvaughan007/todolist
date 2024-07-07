@@ -4,66 +4,47 @@ import Next7Days from './Next7Days';
 import dayjs from 'dayjs';
 import { ToDoContext } from '../../context';
 
-
-
 const Todos = () => {
     const { selectedProject, todos } = useContext(ToDoContext);
+
+    const today = dayjs().format("MM/DD/YYYY");
+
+    const todayTodos = todos
+        .filter(todo => dayjs(todo.date).format("MM/DD/YYYY") === today)
+        .sort((a, b) => dayjs(a.date) - dayjs(b.date));
 
     return (
         <div className='Todos'>
             <div className='selected-project'>
-                { selectedProject }
+                {selectedProject}
             </div>
             <div className='todos'>
                 {
-                    selectedProject === "next 7 days" ?
+                    selectedProject === "next 7 days" ? (
                         <Next7Days todos={todos} />
-                        :
-                        selectedProject === "today" ?
-                            todos.sort((a, b) => {
-                                const dateA = dayjs(a.date);
-                                const dateB = dayjs(b.date);
-
-                                if (dateA < dateB) {
-                                    return -1;
-                                }
-
-                                if (dateA > dateB) {
-                                    return 1;
-                                }
-
-                                return 0;
-                            }).map( todo => 
-                                dayjs(new Date()).format("MM/DD/YYYY") === dayjs(todo.date).format("MM/DD/YYYY") &&
-                                    <Todo todo={todo} key={todo.key}/>
-                            )
-                        :
-                        selectedProject === 'all days' ?
-                            todos.sort((a, b) => {
-                                const dateA = dayjs(a.date);
-                                const dateB = dayjs(b.date);
-
-                                if (dateA < dateB) {
-                                    return -1;
-                                }
-
-                                if (dateA > dateB) {
-                                    return 1;
-                                }
-
-                                return 0;
-                            }).map( todo => 
-                                <Todo todo={todo} key={todo.key} />
-                            )
-                        :
-                            todos.map( todo => 
-                                todo.project === selectedProject &&
-                                <Todo todo={todo} key={todo.key} />
-                            )
+                    ) : selectedProject === "today" ? (
+                        todayTodos.length > 0 ? (
+                            todayTodos.map(todo => (
+                                <Todo todo={todo} key={todo.id} />
+                            ))
+                        ) : (
+                            <p className='open-day'>Nothing To Do Today 🤷‍♂️</p>
+                        )
+                    ) : selectedProject === 'all days' ? (
+                        todos.sort((a, b) => dayjs(a.date) - dayjs(b.date)).map(todo => (
+                            <Todo todo={todo} key={todo.id} />
+                        ))
+                    ) : (
+                        todos
+                            .filter(todo => todo.project === selectedProject)
+                            .map(todo => (
+                                <Todo todo={todo} key={todo.id} />
+                            ))
+                    )
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Todos;

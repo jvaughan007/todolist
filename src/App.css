@@ -454,6 +454,16 @@
    overflow-y: auto;
 }
 
+.Todos .todos .open-day {
+    font-size: 3rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40rem;
+    
+}
+
 /* Todo */
 .Todo {
     padding: 0.5rem 1rem;
