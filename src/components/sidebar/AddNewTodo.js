@@ -16,7 +16,7 @@ dayjs.extend(weekday);
 const AddNewTodo = () => {
 
     // Global Context
-    const { selectedProject, todos } = useContext(ToDoContext);
+    const { selectedProject, todos, projects } = useContext(ToDoContext);
 
     // Local State
     const [showModal, setShowModal] = useState(false);
@@ -27,11 +27,11 @@ const AddNewTodo = () => {
     const [toDoProject, setToDoProject] = useState(selectedProject);
 
 
-    const projects = [
-        { id: 1, name: "personal", numOfTodos: 0},
-        { id: 2, name: "work", numOfTodos: 1},
-        { id: 3, name: "other", numOfTodos: 2}
-    ];
+    // const projects = [
+    //     { id: 1, name: "personal", numOfTodos: 0},
+    //     { id: 2, name: "work", numOfTodos: 1},
+    //     { id: 3, name: "other", numOfTodos: 2}
+    // ];
 
     const handleTextChange = (e) => {
         setText(e.target.value);
@@ -75,7 +75,7 @@ const AddNewTodo = () => {
 
     useEffect( () => {
         setToDoProject(selectedProject);
-    }, [selectedProject, todos]);
+    }, [selectedProject, todos, projects]);
 
     return (
         <div className='AddNewTodo'>

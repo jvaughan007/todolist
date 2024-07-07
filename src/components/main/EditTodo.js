@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TodoForm from './TodoForm';
 import dayjs from 'dayjs';
+import { ToDoContext } from '../../context';
 
 const EditTodo = () => {
+    const { projects } = useContext(ToDoContext);
 
     const [text, setText] = useState('');
     const [day, setDay] = useState(dayjs());
@@ -10,23 +12,6 @@ const EditTodo = () => {
     const [remindMe, setRemindMe] = useState(false);
     const [toDoProject, setToDoProject] = useState();
 
-    const projects = [
-        {
-            id: 1,
-            name: "personal",
-            numOfTodos: 0
-        },
-        {
-            id: 2,
-            name: "work",
-            numOfTodos: 1
-        },
-        {
-            id: 3,
-            name: "other",
-            numOfTodos: 2
-        }
-    ]
 
     const handleTextChange = (e) => {
         setText(e.target.value);
