@@ -16,7 +16,6 @@ export const useTodos = () => {
                     ...doc.data()
                 }));
                 setTodos(data);
-                console.log(todos.length);
             }
         );
 
