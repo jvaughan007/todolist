@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import dayjs from 'dayjs';
 
 
@@ -18,6 +18,10 @@ const Todo = ( { todo } ) => {
         await updateDoc(docRef, {
             checked: !todo.checked
         })
+    }
+
+    const handleDeleteTodo = async (todo) => {
+        await deleteDoc(doc(db, 'todos', todo.id));
     }
 
     return (
@@ -42,10 +46,10 @@ const Todo = ( { todo } ) => {
                 <div className='name'>
                     <p style={{color: todo.checked ? '#bebebe' : '#000'}}>{todo.name}</p>
                     {
-                       ( dayjs(new Date()).format("MM/DD/YYYY") === dayjs(todo.date).format("MM/DD/YYYY") && todo.time > dayjs(new Date()).format("hh:mm A") ) || todo.checked === true ? 
-                        <span> {todo.time} - {todo.project} </span>
-                        :
+                        dayjs(todo.date, "MM/DD/YYYY").isBefore(dayjs(), 'day') && !todo.checked ? 
                         <span style={{color: "red"}}> {todo.time} - {todo.project} (LATE/MISSED)</span>     
+                        :
+                        <span> {todo.time} - {todo.project} </span>
                     }
 
                     <div className={ `line ${ todo.checked ? 'line-through' : ''}` } />
@@ -58,7 +62,10 @@ const Todo = ( { todo } ) => {
                         </span>
                     }
                 </div>
-                <div className='delete-todo'>
+                <div 
+                    className='delete-todo'
+                    onClick={() => handleDeleteTodo(todo)}
+                >
                     {
                         
                         (hover || todo.checked) &&

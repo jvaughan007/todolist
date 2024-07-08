@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react';
 import RenameProject from './RenameProject';
 import { PencilFill, Trash3Fill } from 'react-bootstrap-icons';
 import Modal from '../Modal';
+import { db } from '../../firebase/firebase';
+import { collection, doc, query, where, getDocs, deleteDoc } from 'firebase/firestore'
 import { ToDoContext } from '../../context';
 
 
@@ -12,6 +14,22 @@ const Project = ({project, edit}) => {
 
     // State of this component
     const [showModal, setShowModal] = useState(false);
+
+    const handleDeleteProject = async (project) => {
+        try {
+            const associatedTodos = query(collection(db, "todos"), where("project", "==", project.name));
+            
+            const querySnapshot = await getDocs(associatedTodos);
+            querySnapshot.forEach((todo) => {
+                deleteDoc(doc(db, 'todos', todo.id));
+            })
+
+            deleteDoc(doc(db, 'projects', project.id));
+            setSelectedProject('today');
+        } catch (err) {
+            console.log("Error: ", err);
+        }
+    }
 
     return (
         <div className='Project'>
@@ -28,7 +46,10 @@ const Project = ({project, edit}) => {
                             <span  onClick={() => setShowModal(showmodal => !showModal)}>
                                 <PencilFill size='15'className='edit'/>
                             </span>
-                            <span>
+                            <span 
+                                className='delete'
+                                onClick={() => handleDeleteProject(project)}    
+                            >
                                 <Trash3Fill size='15' className='delete' />
                             </span>
                         </div> 

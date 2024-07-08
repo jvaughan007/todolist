@@ -37,6 +37,7 @@ const Todos = () => {
                     ) : (
                         todos
                             .filter(todo => todo.project === selectedProject)
+                            .sort((a, b) => dayjs(a.date) - dayjs(b.date))
                             .map(todo => (
                                 <Todo todo={todo} key={todo.id} />
                             ))

@@ -396,7 +396,7 @@
 .ProjectForm button {
     position: absolute;
     bottom: 0;
-    height: 50%;
+    height: 27%;
     width: 50%;
     border: none;
     font-size: 1rem;
@@ -417,6 +417,7 @@
 .ProjectForm button.confirm {
     right: 0;
     background-image: linear-gradient(#ab93c9, #ca90bd, #eda1ab, #febca3);
+    
 }
 
 .ProjectForm button.confirm:hover {
