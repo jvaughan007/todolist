@@ -557,7 +557,7 @@
     border: .5px solid black;
 }
 
-.Next7Days .todos .open-day {
+.Next7Days .todos .day-open {
     margin: 10px 0 10px 50px;
     font-weight: bold;
     color: green;

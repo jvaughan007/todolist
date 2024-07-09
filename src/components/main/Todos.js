@@ -22,7 +22,8 @@ const Todos = () => {
                 {
                     selectedProject === "next 7 days" ? (
                         <Next7Days todos={todos} />
-                    ) : selectedProject === "today" ? (
+                    ) : 
+                    selectedProject === "today" ? (
                         todayTodos.length > 0 ? (
                             todayTodos.map(todo => (
                                 <Todo todo={todo} key={todo.id} />

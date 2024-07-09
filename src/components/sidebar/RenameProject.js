@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
 import ProjectForm from './ProjectForm';
+import { db } from '../../firebase/firebase';
+import {doc, updateDoc} from 'firebase/firestore';
 
 const RenameProject = ({project, setShowModal}) => {
 
     const [newProjectName, setNewProjectName] = useState(project.name);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const docRef = doc(db, "projects", project.id);
+
+        await updateDoc(docRef, {
+            name: newProjectName
+        });
+
+        setShowModal(false);
 
     }
 
@@ -15,7 +26,7 @@ const RenameProject = ({project, setShowModal}) => {
                 handleSubmit={handleSubmit}
                 heading='Edit Project Name'
                 value={newProjectName}
-                setValue={setNewProjectName}
+                setNewProjectName={setNewProjectName}
                 setShowModal={setShowModal}
                 confirmButtonText='Confirm'
             />

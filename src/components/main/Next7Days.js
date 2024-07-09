@@ -57,7 +57,7 @@ const Next7Days = () => {
                                     <Todo key={todo.id} todo={todo} />
                                  )
                                 :
-                                <p className='open-day'>
+                                <p className='day-open'>
                                     Open
                                 </p>
                             }

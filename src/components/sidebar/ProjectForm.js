@@ -1,13 +1,13 @@
 import React from "react";
 
-const ProjectForm = ({handleSubmit, heading, value, setProjectName, setShowModal, confirmButtonText}) => {
+const ProjectForm = ({handleSubmit, heading, value, setNewProjectName, setShowModal, confirmButtonText}) => {
     
     return (
         <form onSubmit={handleSubmit} className="ProjectForm">
             <h3>{heading}</h3>
             <input 
                 value={value}
-                onChange={(e) => setProjectName(e.target.value)}
+                onChange={(e) => setNewProjectName(e.target.value)}
                 type='text'
                 placeholder='Your Project Name'
                 autoFocus
