@@ -55,6 +55,8 @@ const AddNewTodo = () => {
                 name: text,
                 project: toDoProject,
                 time: dayjs(time).format("hh:mm A"),
+                repeated: false,
+                countRepeated: 0
             });
             console.log(`Document written with ID: ${newDoc.id}`)
             setShowModal(false);

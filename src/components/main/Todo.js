@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
-import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, addDoc, collection } from 'firebase/firestore';
 import dayjs from 'dayjs';
+import weekday from 'dayjs/plugin/weekday';
+import calendar from 'dayjs/plugin/calendar';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import randomColor from 'randomcolor';
+
+// dayjs Plugins
+dayjs.extend(weekday);
+dayjs.extend(calendar);
+dayjs.extend(relativeTime);
 
 
 const Todo = ( { todo } ) => {
@@ -22,6 +31,39 @@ const Todo = ( { todo } ) => {
 
     const handleDeleteTodo = async (todo) => {
         await deleteDoc(doc(db, 'todos', todo.id));
+    }
+
+    const handleRepeatTodo = async (todo) => {
+
+        const count = todo.count;
+
+        const newCount = count + 1;
+
+        const docRef = await addDoc(collection(db, "todos"), {
+            checked: !todo.checked,
+            color: randomColor(),
+            date: dayjs(todo.date).add(1, 'day').format('MM/DD/YYYY'),
+            day: dayjs(todo.date).add(1, 'day').weekday(),
+            name: `${todo.name}`,
+            project: todo.project,
+            time: todo.time,
+            repeated: true,
+            countRepeated: newCount
+        });
+
+        console.log(`Todo repeated with ID: ${docRef.id}`);
+    }
+
+    const calculateDays = (todoDate) => {
+        const dateDiff =  dayjs().diff(todoDate, 'day');
+
+        if (dateDiff >= 2) {
+            return `(${dateDiff} DAYS LATE)`;
+        } else if (dateDiff === 1) {
+            return `(${dateDiff} DAY LATE)`;
+        } else {
+            return '';
+        }
     }
 
     return (
@@ -47,14 +89,14 @@ const Todo = ( { todo } ) => {
                     <p style={{color: todo.checked ? '#bebebe' : '#000'}}>{todo.name}</p>
                     {
                         dayjs(todo.date, "MM/DD/YYYY").isBefore(dayjs(), 'day') && !todo.checked ? 
-                        <span style={{color: "red"}}> {todo.time} - {todo.project} (LATE/MISSED)</span>     
+                        <span style={{color: "red"}}> {calculateDays(todo.date)} {todo.time} - {todo.project}</span>     
                         :
                         <span> {todo.time} - {todo.project} </span>
                     }
 
                     <div className={ `line ${ todo.checked ? 'line-through' : ''}` } />
                 </div>
-                <div className='add-to-next-day'>
+                <div className='add-to-next-day' onClick={() => handleRepeatTodo(todo)}>
                     {
                         (todo.checked) &&
                         <span>
