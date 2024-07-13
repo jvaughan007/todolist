@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CheckCircleFill, Circle, Trash3Fill, ArrowClockwise } from 'react-bootstrap-icons';
 import { db } from '../../firebase/firebase';
-import { doc, updateDoc, deleteDoc, addDoc, collection } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc, addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import dayjs from 'dayjs';
 import weekday from 'dayjs/plugin/weekday';
 import calendar from 'dayjs/plugin/calendar';
@@ -17,6 +17,7 @@ dayjs.extend(relativeTime);
 const Todo = ( { todo } ) => {
 
     const [hover, setHover] = useState(false);
+    const [todoCount, setTodoCount] = useState(todo.count);
     
 
     const handleChecked = async (e) => {
@@ -34,24 +35,43 @@ const Todo = ( { todo } ) => {
     }
 
     const handleRepeatTodo = async (todo) => {
+        
+        
+        const queryForRepeats = query(
+            collection(db, "todos"),
+            where('name', '==', todo.name),
+            where('repeated', '==', true),
+            where('date', '==', dayjs(todo.date).add(1, 'day').format('MM/DD/YYYY'))
+        );
 
-        const count = todo.count;
+        const querySnapshot = await getDocs(queryForRepeats);
 
-        const newCount = count + 1;
+        if (querySnapshot.docs.length === 0) {
 
-        const docRef = await addDoc(collection(db, "todos"), {
-            checked: !todo.checked,
-            color: randomColor(),
-            date: dayjs(todo.date).add(1, 'day').format('MM/DD/YYYY'),
-            day: dayjs(todo.date).add(1, 'day').weekday(),
-            name: `${todo.name}`,
-            project: todo.project,
-            time: todo.time,
-            repeated: true,
-            countRepeated: newCount
-        });
+           try {
+                setTodoCount(todoCount + 1);
 
-        console.log(`Todo repeated with ID: ${docRef.id}`);
+                const docRef = await addDoc(collection(db, "todos"), {
+                    checked: !todo.checked,
+                    color: randomColor(),
+                    date: dayjs(todo.date).add(1, 'day').format('MM/DD/YYYY'),
+                    day: dayjs(todo.date).add(1, 'day').weekday(),
+                    name: `${todo.name}`,
+                    project: todo.project,
+                    time: todo.time,
+                    repeated: true,
+                    countRepeated: todoCount
+                });
+
+                console.log(`Todo repeated with ID: ${docRef.id}`);
+            } catch (err) {
+                console.log(`Error: ${err.message}`)
+            }
+
+         } else {
+            console.log(querySnapshot.docs);
+            console.log('Error: ToDo has already been repeated for the day')
+         }
     }
 
     const calculateDays = (todoDate) => {
@@ -65,6 +85,8 @@ const Todo = ( { todo } ) => {
             return '';
         }
     }
+
+    
 
     return (
         <div className='Todo'>
