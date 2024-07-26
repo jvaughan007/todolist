@@ -5,6 +5,7 @@ import Modal from '../Modal';
 import { db } from '../../firebase/firebase';
 import { collection, doc, query, where, getDocs, deleteDoc } from 'firebase/firestore'
 import { ToDoContext } from '../../context';
+import AddNewProject from './AddNewProject';
 
 
 const Project = ({project, edit}) => {
@@ -63,7 +64,12 @@ const Project = ({project, edit}) => {
                 }
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal} >
-                <RenameProject setShowModal={setShowModal} project={project} />
+                {
+                    edit === false ?
+                    <AddNewProject />
+                    :
+                    <RenameProject setShowModal={setShowModal} project={project} />
+                }
             </Modal>
         </div>
     )

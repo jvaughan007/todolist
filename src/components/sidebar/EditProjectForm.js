@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProjectForm = ({handleSubmit, heading, value, setNewProjectName, setShowModal, confirmButtonText}) => {
+const EditProjectForm = ({handleSubmit, heading, value, setNewProjectName, setShowModal, confirmButtonText}) => {
     
     return (
         <form onSubmit={handleSubmit} className="ProjectForm">
@@ -22,4 +22,4 @@ const ProjectForm = ({handleSubmit, heading, value, setNewProjectName, setShowMo
     );
 }
 
-export default ProjectForm;
+export default EditProjectForm;

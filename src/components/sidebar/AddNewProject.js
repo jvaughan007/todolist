@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Plus } from 'react-bootstrap-icons';
 import Modal from '../Modal';
-import ProjectForm from './ProjectForm';
+import NewProjectForm from './NewProjectForm';
 import { db } from '../../firebase/firebase';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 
@@ -45,7 +45,7 @@ const AddNewProject = () => {
                 </span>
             </div>
             <Modal showModal={showModal} setShowModal={setShowModal}>
-                <ProjectForm 
+                <NewProjectForm 
                     handleSubmit={handleSubmit}
                     heading='Name Your New Project!'
                     value={projectName}

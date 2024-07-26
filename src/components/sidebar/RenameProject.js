@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ProjectForm from './ProjectForm';
+import EditProjectForm from './EditProjectForm';
 import { db } from '../../firebase/firebase';
 import {doc, updateDoc} from 'firebase/firestore';
 
@@ -22,7 +22,7 @@ const RenameProject = ({project, setShowModal}) => {
 
     return (
         <div className='EditProject'>
-            <ProjectForm
+            <EditProjectForm
                 handleSubmit={handleSubmit}
                 heading='Edit Project Name'
                 value={newProjectName}
