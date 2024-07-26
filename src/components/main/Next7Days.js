@@ -8,20 +8,23 @@ import Todo from './Todo'
 dayjs.extend(weekday);
 
 const Next7Days = () => {
+    console.log('next7days is rendering');
     const [weekTodos, setWeekTodos] = useState([]);
 
     const { todos } = useContext(ToDoContext);
 
     useEffect(() => { 
+        console.log('hello');
+
         const days = [ 0, 1, 2, 3, 4, 5, 6 ]
 
         const sortTodosByDay = days.map( day => {
             return {
-                todos: todos.filter( todo => todo.day === day && dayjs(todo.date, "MM/DD/YYYY").isAfter(dayjs(), 'day') && (dayjs().diff(todo.date, 'day')) > -6),
+                todos: todos.filter( todo => todo.day === day && (dayjs().diff(todo.date, 'day')) > -6),
                 number: day
             }
         });
-
+        console.log("check this: ", sortTodosByDay);
         const today = parseInt(dayjs().format('d'));
 
         const arrangedTodos = sortTodosByDay.slice(today).concat(sortTodosByDay.slice(0, today));
