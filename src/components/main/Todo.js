@@ -15,6 +15,7 @@ dayjs.extend(relativeTime);
 
 
 const Todo = ( { todo } ) => {
+    
 
     const [hover, setHover] = useState(false);
     const [todoCount, setTodoCount] = useState(todo.count);
@@ -113,9 +114,13 @@ const Todo = ( { todo } ) => {
                         dayjs(todo.date, "MM/DD/YYYY").isBefore(dayjs(), 'day') && !todo.checked ? 
                         <span style={{color: "red"}}> {calculateDays(todo.date)} {todo.time} - {todo.project}</span>     
                         :
+                        dayjs(todo.date, "MM/DD/YYYY").diff(dayjs(), 'day') >= 6 ?
+                        <span> {todo.date} @ {todo.time} - {todo.project} </span>
+                        :
                         <span> {todo.time} - {todo.project} </span>
+                        
+                        
                     }
-
                     <div className={ `line ${ todo.checked ? 'line-through' : ''}` } />
                 </div>
                 <div className='add-to-next-day' onClick={() => handleRepeatTodo(todo)}>
